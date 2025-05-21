@@ -8,7 +8,7 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:5173", // replace with your frontend domain on production
+    origin: "http://localhost:5173", // Change to your frontend domain in production
     credentials: true,
   })
 );
@@ -26,10 +26,10 @@ app.use("/", profileRouter);
 app.use("/", requestRouter);
 app.use("/", userRouter);
 
-// Connect DB
+// DB connect
 connectDB()
-  .then(() => console.log("Database connection established..."))
-  .catch((err) => console.error("Database cannot be connected!!", err));
+  .then(() => console.log("✅ Database connected"))
+  .catch((err) => console.error("❌ DB connection failed", err));
 
-// ❗️Don't use app.listen
+// ❗ No app.listen here
 module.exports = app;
