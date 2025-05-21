@@ -1,35 +1,38 @@
 const express = require("express");
 const connectDB = require("./config/database");
+const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
-const app = express();
-
-// Middleware
 app.use(
   cors({
-    origin: "http://localhost:5173", // Change to your frontend domain in production
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
 app.use(express.json());
 app.use(cookieParser());
 
-// Routers
 const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
+
 const userRouter = require("./routes/user");
 const requestRouter = require("./routes/request");
 
 app.use("/", authRouter);
 app.use("/", profileRouter);
-app.use("/", requestRouter);
+app.use('/',requestRouter);
 app.use("/", userRouter);
 
-// DB connect
 connectDB()
-  .then(() => console.log("✅ Database connected"))
-  .catch((err) => console.error("❌ DB connection failed", err));
+  .then(() => {
+    console.log("Database connection established...");
+    
+  })
+  .catch((err) => {
+    console.error("Database cannot be connected!!");
+  });
 
-// ❗ No app.listen here
-module.exports = app;
+  app.listen(3000, () => {
+      console.log("Server is successfully listening on port 3000...");
+    });
