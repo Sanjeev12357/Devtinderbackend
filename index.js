@@ -17,9 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 connectDB()
-  .then(() => {
-    console.log("Database connected successfully...");
-  })
+ 
 const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 
